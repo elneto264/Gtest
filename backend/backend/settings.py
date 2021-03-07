@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +25,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&m)%c9d9%ij^z!bci1w9#u!8t!wf89ooovd#w53%9&y8v(r$jz'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False 
 
 ALLOWED_HOSTS = []
 
@@ -78,11 +83,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'staging',
-        'USER':'ernesto.test',
-        'PASSWORD': 'Glovo12345!',
-        'HOST': 'SG-pacodb-1980-master.servers.mongodirector.com',
-        'PORT':3306,
+        'NAME': env('DATABASE_NAME'),
+        'USER':env('DATABASE_USER'),
+        'PASSWORD':env('DATABASE_PASS'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT':env('DATABASE_PORT'),
     }
 }
 
